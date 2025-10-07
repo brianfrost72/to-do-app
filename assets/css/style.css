@@ -142,7 +142,7 @@ button:hover {
   }
 }
 
-/*# Preloader */
+/* Preloader background tetap */
 #preloader {
   position: fixed;
   top: 0;
@@ -161,29 +161,32 @@ button:hover {
   position: relative;
   width: 140px;
   height: 140px;
-  perspective: 800px;
-  transform-style: preserve-3d;
+  text-align: center;
 }
 
-.cube {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  animation: cubeRotate 4s infinite ease-in-out;
+/* ✨ Logo kedap-kedip smooth */
+.preloader-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  animation: blinkSmooth 2s infinite ease-in-out;
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.6));
 }
 
-.cube-face {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  backface-visibility: visible;
-  transform-style: preserve-3d;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+/* Animasi kedap-kedip halus */
+@keyframes blinkSmooth {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
 }
 
+/* Progress bar & teks loading tetap */
 .progress-bar {
   position: absolute;
   bottom: -50px;
@@ -213,41 +216,6 @@ button:hover {
   letter-spacing: 2px;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.6);
-}
-
-@keyframes cubeRotate {
-  0% {
-    transform: rotateX(0deg) rotateY(0deg);
-  }
-  25% {
-    transform: rotateX(90deg) rotateY(90deg);
-  }
-  50% {
-    transform: rotateX(180deg) rotateY(180deg);
-  }
-  75% {
-    transform: rotateX(270deg) rotateY(270deg);
-  }
-  100% {
-    transform: rotateX(360deg) rotateY(360deg);
-  }
-}
-
-.content {
-  min-height: 100vh;
-  display: none;
-  padding: 5rem 2rem;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-}
-
-.container h2 {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 .preloader-done {
