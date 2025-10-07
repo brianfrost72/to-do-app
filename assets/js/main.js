@@ -59,3 +59,56 @@ deleteAll.addEventListener("click", () => {
     doneContainer.innerHTML = "";
   }
 });
+
+// Preloader //
+
+document.addEventListener('DOMContentLoaded', function() {
+            const preloader = document.getElementById('preloader');
+            const content = document.querySelector('.content');
+            const progress = document.getElementById('progress');
+            const loadingText = document.querySelector('.loading-text');
+            
+            // Simulate loading progress
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    loadingText.textContent = "READY";
+                    
+                    setTimeout(() => {
+                        // Hide preloader with transform
+                        preloader.classList.add('preloader-done');
+                        
+                        // Show content
+                        content.style.display = 'block';
+                        
+                        // Trigger reflow
+                        void content.offsetWidth;
+                        
+                        // Fade in content
+                        content.style.opacity = '1';
+                        
+                        // Remove preloader after animation
+                        setTimeout(() => {
+                            preloader.style.display = 'none';
+                        }, 800);
+                    }, 600);
+                } else {
+                    width += Math.floor(Math.random() * 5) + 1;
+                    width = Math.min(width, 100);
+                    progress.style.width = width + '%';
+                    
+                    if (width > 80) {
+                        loadingText.textContent = "ALMOST THERE";
+                    } else if (width > 50) {
+                        loadingText.textContent = "LOADING ASSETS";
+                    }
+                }
+            }, 100);
+        });
+        
+        // Alternative: use load event for real loading progress
+        window.addEventListener('load', function() {
+            // This will trigger when all resources are actually loaded
+            // You could remove the interval above and just use this
+        });
