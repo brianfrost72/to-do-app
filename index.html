@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List App</title>
+
+    <!-- Fav icon-->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+
+    <!--CSS-->
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <!--Font awesome-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body
+    style="background: url('assets/img/bg.jpg') no-repeat center center/cover"
+  >
+    <div class="container">
+      <header>
+        <div class="profile">
+          <h2>To Do List: Brian Steven</h2>
+          <p>Mission 4</p>
+        </div>
+        <div class="time" id="time"></div>
+      </header>
+
+      <section class="input-section">
+        <textarea
+          id="taskInput"
+          placeholder="Type your activity here..."
+        ></textarea>
+        <select id="priority">
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+        <button id="addTask">Add tasks</button>
+        <button id="deleteAll">Delete All</button>
+      </section>
+
+      <div class="lists">
+        <div class="todo-list">
+          <h3>To-Do List</h3>
+          <hr />
+          <div id="todoContainer"></div>
+        </div>
+
+        <div class="done-list">
+          <h3>Done List</h3>
+          <hr />
+          <div id="doneContainer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!--JS-->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
