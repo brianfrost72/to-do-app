@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (width > 80) {
                         loadingText.textContent = "ALMOST THERE";
                     } else if (width > 50) {
-                        loadingText.textContent = "LOADING ASSETS";
+                        loadingText.textContent = "LOADING TASKS";
                     }
                 }
             }, 100);
