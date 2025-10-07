@@ -5,6 +5,9 @@ const todoContainer = document.getElementById("todoContainer");
 const doneContainer = document.getElementById("doneContainer");
 const prioritySelect = document.getElementById("priority");
 
+// -------------------
+// Menampilkan waktu real-time
+// -------------------
 function updateTime() {
   const now = new Date();
   const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
@@ -13,10 +16,59 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
+// -------------------
+// Fungsi Simpan & Muat dari localStorage
+// -------------------
+function saveTasks() {
+  const tasks = {
+    todo: todoContainer.innerHTML,
+    done: doneContainer.innerHTML,
+  };
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function loadTasks() {
+  const saved = JSON.parse(localStorage.getItem("tasks"));
+  if (saved) {
+    todoContainer.innerHTML = saved.todo;
+    doneContainer.innerHTML = saved.done;
+    restoreEventListeners();
+  }
+}
+
+// -------------------
+// Mengembalikan event listener setelah load
+// -------------------
+function restoreEventListeners() {
+  document.querySelectorAll(".task input[type='checkbox']").forEach((check) => {
+    check.addEventListener("change", () => {
+      const task = check.closest(".task");
+      if (check.checked) {
+        task.classList.add("done");
+        doneContainer.appendChild(task);
+      } else {
+        task.classList.remove("done");
+        todoContainer.appendChild(task);
+      }
+      saveTasks();
+    });
+  });
+
+  document.querySelectorAll(".task button").forEach((delBtn) => {
+    delBtn.addEventListener("click", (e) => {
+      e.target.closest(".task").remove();
+      saveTasks();
+    });
+  });
+}
+
+// -------------------
+// Tambah Task
+// -------------------
 addTask.addEventListener("click", () => {
   const taskText = taskInput.value.trim();
   const priority = prioritySelect.value;
-  if (taskText === "") return alert("write the assignment first!");
+  if (taskText === "") return alert("Write the task first!");
 
   const task = document.createElement("div");
   task.classList.add("task", priority.toLowerCase());
@@ -27,11 +79,10 @@ addTask.addEventListener("click", () => {
   const actions = document.createElement("div");
   const check = document.createElement("input");
   check.type = "checkbox";
-
   const delBtn = document.createElement("button");
   delBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
 
-
+  // event listener
   check.addEventListener("change", () => {
     if (check.checked) {
       task.classList.add("done");
@@ -40,9 +91,13 @@ addTask.addEventListener("click", () => {
       task.classList.remove("done");
       todoContainer.appendChild(task);
     }
+    saveTasks();
   });
 
-  delBtn.addEventListener("click", () => task.remove());
+  delBtn.addEventListener("click", () => {
+    task.remove();
+    saveTasks();
+  });
 
   actions.appendChild(check);
   actions.appendChild(delBtn);
@@ -51,14 +106,26 @@ addTask.addEventListener("click", () => {
 
   todoContainer.appendChild(task);
   taskInput.value = "";
+
+  saveTasks(); // simpan setelah menambah
 });
 
+// -------------------
+// Hapus Semua
+// -------------------
 deleteAll.addEventListener("click", () => {
-  if (confirm("Delete all lists?")) {
+  if (confirm("Delete all list(s)?")) {
     todoContainer.innerHTML = "";
     doneContainer.innerHTML = "";
+    localStorage.removeItem("tasks");
   }
 });
+
+// -------------------
+// Jalankan saat pertama kali
+// -------------------
+loadTasks();
+
 
 // Preloader //
 
@@ -112,3 +179,4 @@ document.addEventListener('DOMContentLoaded', function() {
             // This will trigger when all resources are actually loaded
             // You could remove the interval above and just use this
         });
+        

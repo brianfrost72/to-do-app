@@ -130,6 +130,7 @@ button:hover {
   color: white;
   padding: 5px 8px;
   border-radius: 6px;
+  margin-left: 5px;
 }
 
 .task button:hover {
