@@ -202,7 +202,7 @@ button:hover {
 .progress {
   height: 100%;
   width: 0%;
-  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  background: linear-gradient(to right, #bc1924, #ffc107);
   transition: width 0.2s ease;
 }
 
